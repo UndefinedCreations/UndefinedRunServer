@@ -4,6 +4,8 @@ import com.google.gson.JsonParser
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URI
+import java.util.Scanner
+import java.util.UUID
 
 
 /**
@@ -76,6 +78,26 @@ object DownloadLib {
      */
     fun purpur(folder: File, minecraftVersion: String): DownloadResult =
         downloadFile(folder, "${Repositories.PURPUR_REPO}/$minecraftVersion/latest/download", "Purpur.jar")
+
+    /**
+     * This method is used to download AdvancedSlimePaper.
+     *
+     * @param folder The folder to download the jar to
+     * @param minecraftVersion The minecraft version target
+     */
+    fun asp(folder: File, minecraftVersion: String): DownloadResult {
+        val informationURL = URI.create("${Repositories.ASP_REPO}/mcversion/$minecraftVersion/latest")
+        val input = informationURL.toURL().readText()
+        val scanner = Scanner(input).useDelimiter("\\A")
+        val result = if (scanner.hasNext()) scanner.next() else ""
+
+        val json = JsonParser.parseString(result).asJsonObject
+        val id = UUID.fromString(json["id"].asString)
+        val files = json["files"].asJsonArray
+        val fileId = UUID.fromString(files.first().asJsonObject["id"].asString)
+
+        return downloadFile(folder, "${Repositories.ASP_REPO}/$id/download/$fileId", "AdvancedSlimePaper.jar")
+    }
 
     /**
      * This method is used to download Pufferfish.

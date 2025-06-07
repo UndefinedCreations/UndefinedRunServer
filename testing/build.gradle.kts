@@ -19,12 +19,12 @@ repositories {
 }
 
 dependencies {
-    echo("1.13", mojangMappings = false)
+    echo("1.21.4", mojangMappings = true, printDebug = true)
 }
 
 tasks {
     shadowJar {
-        archiveFileName.set("server-1.0.0.jar")
+        archiveFileName.set("plugin.jar")
     }
     compileKotlin {
         kotlinOptions.jvmTarget = "21"
@@ -33,11 +33,9 @@ tasks {
         options.release.set(21)
     }
     runServer {
-
-        serverType(ServerType.VELOCITY)
-        minecraftVersion("3.4.0-SNAPSHOT")
-        debugMessage(debug = true)
-        noGui(true)
+        serverType(ServerType.ASP)
+        minecraftVersion("1.21.4")
+        debugMessage(true)
         perVersionFolder(true)
         acceptMojangEula()
     }

@@ -34,6 +34,11 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
     PURPUR("purpur", false),
 
     /**
+     * AdvancedSlimePaper server type, a fork of Paper.
+     */
+    ASP("asp", false),
+
+    /**
      * BungeeCord proxy server type.
      */
     BUNGEECORD("bungeecord", true),
@@ -69,7 +74,8 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
             SPIGOT -> DownloadLib.spigot(directory, mcVersion)
             PAPERMC -> DownloadLib.paper(directory, mcVersion)
             PUFFERFISH -> DownloadLib.pufferfish(directory, mcVersion)
-            PURPUR -> DownloadLib.purper(directory, mcVersion)
+            PURPUR -> DownloadLib.purpur(directory, mcVersion)
+            ASP -> DownloadLib.asp(directory, mcVersion)
             BUNGEECORD -> DownloadLib.bungeecord(directory)
             WATERFALL -> DownloadLib.waterfall(directory, mcVersion)
             VELOCITY -> DownloadLib.velocity(directory, mcVersion)
@@ -86,6 +92,7 @@ enum class ServerType(val loaderName: String, val proxy: Boolean) {
             PAPERMC -> VersionLib.paper()
             PUFFERFISH -> VersionLib.pufferfish()
             PURPUR -> VersionLib.purpur()
+            ASP -> VersionLib.asp()
             BUNGEECORD -> VersionLib.bungeecord()
             WATERFALL -> VersionLib.waterfall()
             VELOCITY -> VersionLib.velocity()
