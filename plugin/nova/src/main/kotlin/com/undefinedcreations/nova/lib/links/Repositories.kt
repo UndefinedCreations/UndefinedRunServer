@@ -33,17 +33,22 @@ object Repositories {
     const val PUFFERFISH_REPO = "https://ci.pufferfish.host/job"
 
     /**
-     * The spigotmc repository to download plugins from spigotmc.org
+     * The AdvancedSlimePaper repository to download pufferfish
+     */
+    const val ASP_REPO = "https://api.infernalsuite.com/v1/projects/asp"
+
+    /**
+     * The spigotmc repository to download plugins from `spigotmc.org`
      */
     const val SPIGOT_API = "https://api.spiget.org/v2/resources/"
 
     /**
-     * The papermc hanger repository to download plugins from hangar.papermc.io
+     * The papermc hanger repository to download plugins from `hangar.papermc.io`
      */
     const val PAPERMC_API = "https://hangar.papermc.io/api/v1/projects/"
 
     /**
-     * The modrinth repository to download plugins from modrinth.com
+     * The modrinth repository to download plugins from `modrinth.com`
      */
     const val MODRINTH_API = "https://api.modrinth.com/v2/project/"
 

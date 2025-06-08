@@ -8,6 +8,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.JavaExec
 import java.io.File
 import java.net.URI
+import java.net.URISyntaxException
 
 /**
  * This class is extending `JavaExec`. Which is a task to run jar files
@@ -110,17 +111,21 @@ abstract class AbstractServer : JavaExec() {
      * Throws a [UnsupportedJavaVersionException] if the correct Java version is not used.
      */
     private fun checkJavaVersion(minecraftVersion: String, javaVersion: JavaVersion) {
-        val uri = URI.create("https://hub.spigotmc.org/versions/$minecraftVersion.json").toURL()
-        val response = JsonParser.parseString(uri.readText()).asJsonObject
+        try {
+            val uri = URI.create("https://hub.spigotmc.org/versions/$minecraftVersion.json").toURL()
+            val response = JsonParser.parseString(uri.readText()).asJsonObject
 
-        val versionsArray = response["javaVersions"].asJsonArray
-        val minJava = versionsArray[0].asInt
-        val maxJava = versionsArray[1].asInt
+            val versionsArray = response["javaVersions"].asJsonArray
+            val minJava = versionsArray[0].asInt
+            val maxJava = versionsArray[1].asInt
 
-        val classFileMajorVersion: Int = javaVersion.majorVersion.toInt() + 44
-        if (classFileMajorVersion in minJava..maxJava) return
+            val classFileMajorVersion: Int = javaVersion.majorVersion.toInt() + 44
+            if (classFileMajorVersion in minJava..maxJava) return
 
-        throw UnsupportedJavaVersionException(minJava, maxJava)
+            throw UnsupportedJavaVersionException(minJava, maxJava)
+        } catch (e: URISyntaxException) {
+            logger.error("Could not find $minecraftVersion.", e)
+        }
     }
 
 }

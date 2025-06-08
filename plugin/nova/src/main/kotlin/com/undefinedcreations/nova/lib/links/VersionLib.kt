@@ -72,6 +72,18 @@ object VersionLib {
     }
 
     /**
+     * Used to get a list of all supported for `AdvancedSlimePaper`.
+     *
+     * @return A list of all supported versions for `AdvancedSlimePaper`.
+     */
+    fun asp(): List<String> {
+        val url = URI.create(Repositories.ASP_REPO)
+        val versions: MutableSet<String> = mutableSetOf()
+        for (element in JsonParser.parseString(url.toURL().readText()).asJsonArray) versions.addAll(element.asJsonObject["mcVersion"].asJsonArray.map { it.asString })
+        return versions.toList()
+    }
+
+    /**
      * Used to get a list of all supported for `Pufferfish`.
      *
      * @return A list of all supported versions for `Pufferfish`.
